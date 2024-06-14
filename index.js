@@ -26,13 +26,14 @@ app.get("/api/", function (req, res) {
 });
 
 app.get("/api/:date", function (req, res) {
-  const paramDate = (req.params.date.includes("-")) ? req.params.date : parseInt(req.params.date);
-  const date = new Date(paramDate);
-
-  if (date.toString() === "Invalid Date" ) {
-    res.json({error: date.toString()});
-  } else {
+  const regexDate = /\d{4}[-]\d{2}[-]\d{2}/;
+  const regexTime = /\d/;
+  if (regexDate.test(req.params.date) || regexTime.test(req.params.date)) {
+    const paramDate = (req.params.date.match()) ? req.params.date : parseInt(req.params.date);
+    const date = new Date(paramDate);
     res.json({unix: date.getTime(), utc: date.toUTCString()});
+  } else {
+    res.json({error: "Invalid date"});
   }
 });
 
