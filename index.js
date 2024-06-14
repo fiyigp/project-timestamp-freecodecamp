@@ -29,7 +29,7 @@ app.get("/api/:date", function (req, res) {
   const regexDate = /\d{4}[-]\d{2}[-]\d{2}/;
   const regexTime = /\d/;
   if (regexDate.test(req.params.date) || regexTime.test(req.params.date)) {
-    const paramDate = (req.params.date.match()) ? req.params.date : parseInt(req.params.date);
+    const paramDate = (regexDate.test(req.params.date)) ? req.params.date : parseInt(req.params.date);
     const date = new Date(paramDate);
     res.json({unix: date.getTime(), utc: date.toUTCString()});
   } else {
