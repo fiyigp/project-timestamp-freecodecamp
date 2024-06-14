@@ -29,7 +29,7 @@ app.get("/api/:date", function (req, res) {
   const regexDate = /\d{4}[-]\d{2}[-]\d{2}/;
   const regexTime = /^\d+$/;
   const regexGMT = /\d{2}[ ][A-Za-z]{3,9}[ ]\d{4}[,][ ][G][M][T]/;
-  if (regexDate.test(req.params.date) || regexTime.test(req.params.date) || regexGMT.test(date)) {
+  if (regexDate.test(req.params.date) || regexTime.test(req.params.date) || regexGMT.test(req.params.date)) {
     const paramDate = (regexTime.test(req.params.date)) ? parseInt(req.params.date) : req.params.date;
     const date = new Date(paramDate);
     res.json({unix: date.getTime(), utc: date.toUTCString()});
